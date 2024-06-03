@@ -124,4 +124,12 @@ class ProjectController extends Controller
     }
 
 
+    public function countProject()
+    {
+       $count= Project::count();
+       return response(['count'=>$count]);
+
+    }
+
+
 }

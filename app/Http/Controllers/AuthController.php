@@ -48,7 +48,7 @@ class AuthController extends Controller
         User::where('remember_token', $token)
             ->update(['isValidEmail' => User::IS_VALID_EMAIL]);
 
-        return redirect('/login');
+        return redirect('/app/login');
     }
 
     function generateRandomCode()
@@ -80,13 +80,17 @@ class AuthController extends Controller
 
             if (intval($user->isValidEmail) !== User::IS_VALID_EMAIL) {
                 NewUserCreated::dispatch($user);
-                return response(['message' => 'We send you an email verification !']);
+                return response([
+                    'message' => 'We send you an email verification !',
+                    'isLoggedIn' => false
+                ],422);
             }
         }
 
         if (!$user || !Hash::check($fields['password'], $user->password)) {
 
-            return response(['message' => 'email or password invalid', 'isLoggedIn' => true], 422);
+            return response(['message' => 'email or password invalid', 
+            'isLoggedIn' => false], 422);
         }
 
 
@@ -101,5 +105,15 @@ class AuthController extends Controller
             ],
             200
         );
+    }
+
+
+    public function logoutUser(Request $request){
+
+        DB::table('personal_access_tokens')
+        ->where('tokenable_id',$request->userId)
+        ->delete();
+
+        return response(['message' => 'logout user'],200);
     }
 }
