@@ -19,7 +19,7 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 
-// Route::group(['middleware'=>['auth:sanctum']],function(){
+Route::group(['middleware'=>['auth:sanctum']],function(){
 
     // 
 
@@ -35,8 +35,12 @@ Route::controller(AuthController::class)->group(function(){
         Route::post('/projects/pinned','pinnedProject');
         Route::get('/projects/{slug}','getProject');
         Route::get('/count/projects','countProject');
-    
+        Route::get('/pinned/projects','getPinnedProject');
+        Route::get('/chart-data/projects','getProjectChartData');
+
+
         
+    
     });
     
     
@@ -48,17 +52,18 @@ Route::controller(AuthController::class)->group(function(){
     
     
     Route::controller(TaskController::class)->group(function(){
-        Route::post('/tasks','createTask');
-        Route::post('tasks/not_started_to_pending','TaskToNotStartedToPending');
-        Route::post('tasks/not_started_to_completed','TaskToNotStartedToCompleted');
-        Route::post('tasks/pending_to_completed','TaskToPendingToCompleted');
-        Route::post('tasks/pending_to_not_started','TaskToPendingToNotStarted');
-        Route::post('tasks/completed_to_pending','TaskToCompletedToPending');
-        Route::post('tasks/completed_to_not_started','TaskToCompletedToNotStarted');
+        Route::post('/tasks','createTask'); //finish
+        Route::post('tasks/not_started_to_pending','TaskToNotStartedToPending'); //work on
+        Route::post('tasks/pending_to_completed','TaskToPendingToCompleted'); //work on
+        Route::post('tasks/completed_to_pending','TaskToCompletedToPending'); //work on
+
+        Route::post('tasks/completed_to_not_started','TaskToCompletedToNotStarted'); //home work
+        Route::post('tasks/not_started_to_completed','TaskToNotStartedToCompleted');  //home work
+        Route::post('tasks/pending_to_not_started','TaskToPendingToNotStarted');  //home work
        
     });
 // 
-// });
+});
 
 
 

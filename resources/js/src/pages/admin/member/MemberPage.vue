@@ -2,7 +2,6 @@
 import { onMounted } from "vue";
 import MemberTable from "./components/MemberTable.vue";
 import { MemberType, useGetMembers } from "./actions/GetMember";
-import { Bootstrap5Pagination } from "laravel-vue-pagination";
 import { useRouter } from "vue-router";
 import { memberStore } from "./store/memberStore";
 import { MemberInputType } from "./actions/createMember";

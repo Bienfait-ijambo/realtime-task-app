@@ -1,37 +1,69 @@
-
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { useGetProject } from "./actions/getProject";
+import { ProjectType, useGetProject } from "./actions/GetProject";
 import ProjectTable from "./components/ProjectTable.vue";
-import { Bootstrap5Pagination } from "laravel-vue-pagination";
+import { useRouter } from "vue-router";
+import { projectStore } from "./store/projectStore";
+import { ProjectInputType } from "./actions/createProject";
+import { usePinnedProject } from "./actions/pinnedProject";
 
+const { getProjects, loading, ProjectData } = useGetProject();
+async function showListOfProjects() {
+    await getProjects();
+}
 
-const {getProjects,loading,projectData}=useGetProject()
+const router=useRouter()
+function editProject(project:ProjectType){
+    projectStore.projectInput={
+        id:project.id,
+        name:project.name,
+        startDate:project.startDate,
+        endDate:project.endDate
+    }
+    
+    projectStore.edit=true
+    router.push('/create-projects')
 
-onMounted(()=>{
-    getProjects()
-})
+}
+
+const {pinnedProject}=usePinnedProject()
+
+async function pinnedProjectOnDashboard(projectId:number){
+    await pinnedProject(projectId)
+    router.push('/admin')
+}
+onMounted(async () => {
+    showListOfProjects();
+    projectStore.edit=false
+    projectStore.projectInput={} as ProjectInputType
+});
 </script>
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Members
+                        Projects
                         <RouterLink
                             style="float: right"
-                            to="/create-members"
+                            to="/create-projects"
                             class="btn btn-primary"
-                            >Create Member</RouterLink
+                            >Create Project</RouterLink
                         >
                     </div>
                     <div class="card-body">
-                        <ProjectTable :projects="projectData">
+                        <ProjectTable
+                        @getProject="getProjects"
+                        :loading="loading"
+                        @editProject="editProject"
+                        :projects="ProjectData"
+                        @pinnedProject="pinnedProjectOnDashboard"
+                        >
                             <template #pagination>
                                 <Bootstrap5Pagination 
-                                v-if="projectData?.data"
-                                :data="projectData?.data"
+                                v-if="ProjectData?.data"
+                                :data="ProjectData?.data"
                                 @pagination-change-page="getProjects"
                                 />
                                

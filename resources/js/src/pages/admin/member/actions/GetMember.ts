@@ -16,7 +16,6 @@ export type GetMemberType={
 
 export function useGetMembers(){
     const loading=ref(false)
-    const query=ref('')
     const memberData=ref<GetMemberType>({} as GetMemberType)
     async function getMembers(page:number=1,query:string=''){
        try {

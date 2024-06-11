@@ -43,12 +43,20 @@ const router = createRouter({
                     name: "create-members",
                     component: () => import("../pages/admin/member/CreateMember.vue"),
                 },
+              
                 {
                     path: "/projects",
                     name: "projects",
                     component: () => import("../pages/admin/project/ProjectPage.vue"),
                 },
-               
+                {
+                    path: "/kaban",
+                    name: "kaban",
+                    component: () => import("../pages/admin/kabanboard/KabanBoard.vue"),
+                },
+      
+
+   
                 
             ],
         },
