@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { ProjectType, useGetProject } from "./actions/GetProject";
 import ProjectTable from "./components/ProjectTable.vue";
 import { useRouter } from "vue-router";
 import { projectStore } from "./store/projectStore";
 import { ProjectInputType } from "./actions/createProject";
 import { usePinnedProject } from "./actions/pinnedProject";
+import { useGetProject,ProjectType } from "./actions/getProject";
 
 const { getProjects, loading, ProjectData } = useGetProject();
 async function showListOfProjects() {

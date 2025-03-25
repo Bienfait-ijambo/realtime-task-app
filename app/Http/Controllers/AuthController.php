@@ -14,6 +14,7 @@ use App\Events\NewUserCreated;
 class AuthController extends Controller
 {
 
+   
     private $secretKey = "qQKPjndxljuYQi/POiXJa8O19nVO/vTf/DpXO541g=qQKPjndxljuYQi/POiXJa8O19nVO/vTf/DpXO541g=";
 
     public function register(Request $request)

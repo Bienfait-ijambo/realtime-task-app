@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import ApexDonut from "./components/ApexDonut.vue";
 import ApexRadialBar from "./components/ApexRadialBar.vue";
 import { useGetPinnedProject } from "./actions/GetPinnedProject";
@@ -24,7 +24,6 @@ onMounted(async () => {
         <br />
         <div class="row">
             <div class="col-md-8">
-                {{ project?.id }}
                 <h3 style="color: rgb(118, 119, 120)">
                     Project :{{ project?.name }}
                 </h3>

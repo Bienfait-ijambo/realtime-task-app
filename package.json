@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build"
+        "build": "vue-tsc --noEmit && vite build",
+        "build-only":"vite build"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
